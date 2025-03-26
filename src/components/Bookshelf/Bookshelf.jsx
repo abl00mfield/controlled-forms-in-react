@@ -1,27 +1,36 @@
 import { useState } from "react";
 
 const Bookshelf = () => {
+  //holds all the books
   const [books, setBooks] = useState([]);
+  //hold the book entered on the form
   const [newBook, setNewBook] = useState({
     title: "",
     author: "",
   });
 
   const handleInputChange = (event) => {
+    //as the user is typing, it updates the newBook state
     const updatedBook = { ...newBook, [event.target.name]: event.target.value };
     setNewBook(updatedBook);
   };
 
   const handleSubmit = (event) => {
+    // this prevents the default behavior of submitting a form
     event.preventDefault();
+
+    //add the new book to the array of books
     const newBooks = [...books, newBook];
     setBooks(newBooks);
+
+    //reset the form
     setNewBook({
       title: "",
       author: "",
     });
   };
 
+  //this will check if the user has left any fields blank and disables the submit button if so
   const formHasMissingData = !Object.values(newBook).every(Boolean);
 
   return (
